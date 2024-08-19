@@ -34,7 +34,9 @@ jobs:
           echo "$output" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
         env:
-          CHECK_PATH: './pages/'
+          CHECK_PATH: './pages/'  # Set the directory to scan
+          IGNORED_STATUS_CODES: '200,403,405,415,501'  # Set the status codes to ignore
+          FILE_EXTENSIONS: '.md,.mdx'  # Set the file types to check
 
       - name: Process results
         id: process_results
