@@ -29,7 +29,7 @@ jobs:
       - name: Run link checker
         id: run_checker
         run: |
-          output=$(python scripts/urlcheck.py)
+          output=$(python scripts/urlcheck.py ${{ env.CHECK_PATH }})
           echo 'checker_output<<EOF' >> $GITHUB_OUTPUT
           echo "$output" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
@@ -37,8 +37,8 @@ jobs:
           CHECK_PATH: './pages/'  # Directory to scan
           IGNORED_STATUS_CODES: '200,403,405,415,501'  # Status codes to ignore
           FILE_EXTENSIONS: '.md,.mdx'  # File types to check
-          INTERNAL_404_URL: 'https://foo.bar/404.html'  # [optional] custom 404 page URL
-          MAX_WORKERS: '6'  # Threads to use for checking
+          INTERNAL_404_URL: 'https://docs.osmosis.zone/404.html'  # Custom 404 URL to ignore
+          MAX_WORKERS: '5'  # Number of threads to use for checking
 
       - name: Process results
         id: process_results
