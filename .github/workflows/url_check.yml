@@ -2,7 +2,7 @@ name: Broken URL Check
 
 on:
   schedule:
-    - cron: '0 0 * * 1'
+    - cron: '0 0 * * 0'  # Run weekly on Sunday at 00:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -34,9 +34,11 @@ jobs:
           echo "$output" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
         env:
-          CHECK_PATH: './pages/'  # Set the directory to scan
-          IGNORED_STATUS_CODES: '200,403,405,415,501'  # Set the status codes to ignore
-          FILE_EXTENSIONS: '.md,.mdx'  # Set the file types to check
+          CHECK_PATH: './pages/'  # Directory to scan
+          IGNORED_STATUS_CODES: '200,403,405,415,501'  # Status codes to ignore
+          FILE_EXTENSIONS: '.md,.mdx'  # File types to check
+          INTERNAL_404_URL: 'https://foo.bar/404.html'  # [optional] custom 404 page URL
+          MAX_WORKERS: '6'  # Threads to use for checking
 
       - name: Process results
         id: process_results

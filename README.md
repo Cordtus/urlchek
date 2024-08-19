@@ -24,21 +24,21 @@ This tool helps you identify broken URLs in your GitHub documentation repository
 
 3. **Configure the GitHub Action**
 
-   The `url_check.yml` GitHub Action is configured to run daily at midnight. You can adjust the schedule by modifying the `cron` expression:
+   The `url_check.yml` GitHub Action is configured to run at the start of each week (Sunday - 0:00UTC). You can adjust the schedule by modifying the `cron` expression:
 
    ```yaml
    on:
      schedule:
-       - cron: '0 0 * * *'  # Modify this for a different schedule
+       - cron: '0 0 * * 0'  # Runs on this schedule
    ```
 
    You can customize the directory to check, the file types to scan, and the HTTP status codes to ignore by modifying the environment variables in the workflow file:
 
    ```yaml
    env:
-     CHECK_PATH: './pages/'  # Set the directory to scan
-     IGNORED_STATUS_CODES: '200,403,405,415,501'  # Set the status codes to ignore
-     FILE_EXTENSIONS: '.md,.mdx'  # Set the file types to check
+     CHECK_PATH: './pages/'  # Directory to scan
+     IGNORED_STATUS_CODES: '200,403,405,415,501'  # Status codes to ignore
+     FILE_EXTENSIONS: '.md,.mdx'  # File types to check
    ```
 
 4. **Run the Workflow**

@@ -6,10 +6,9 @@ import requests
 from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-INTERNAL_404_URL = "https://docs.osmosis.zone/404.html"
-MAX_WORKERS = 5
-
-# Ignored status codes and checked file extensions can be overridden in workflow file
+# Configs are set by env variables in workflow file
+INTERNAL_404_URL = os.environ.get('INTERNAL_404_URL', 'https://docs.osmosis.zone/404.html')
+MAX_WORKERS = int(os.environ.get('MAX_WORKERS', 5))
 IGNORED_STATUS_CODES = set(map(int, os.environ.get('IGNORED_STATUS_CODES', '200,403,405,415,501').split(',')))
 FILE_EXTENSIONS = os.environ.get('FILE_EXTENSIONS', '.md,.mdx').split(',')
 
